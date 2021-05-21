@@ -21,10 +21,10 @@ def priceAlert(update, context):
         context.job_queue.run_repeating(priceAlertCallback, interval=15, first=15,
                                         context=[crypto, sign, price, update.message.chat_id])
 
-        response = f"⏳ Я тобі відправлю повідомлення, коли {crypto} перевисить ₴ {price}, \n"
-        response += f"теперішня ціна {crypto} є ₴ {coinbase_client.get_spot_price(currency_pair=crypto + '-UAH')['amount']}"
+        response = f"⏳ I will send you a message when the price of {crypto} reaches ₴ {price}, \n"
+        response += f"the current price of {crypto} is ₴ {coinbase_client.get_spot_price(currency_pair=crypto + '-UAH')['amount']}"
     else:
-        response = '⚠️ Будь ласка, надайте крипто-код та значення ціни: \n<i>/price_alert {crypto code} {> / &lt;} {price}</i>'
+        response = '⚠ Please provide a crypto code and a price value: \n<i>/price_alert {crypto code} {> / &lt;} {price}</i>'
 
     context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
